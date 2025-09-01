@@ -10,6 +10,12 @@ export default function HomePage() {
     const [toCurrency, setToCurrency] = useState<string>('');
     const [currencies, setCurrencies] = useState<CurrencyDTO[]>([]);
     
+    const handleSwitchCurrencies = () => {
+        setFromCurrency(toCurrency);
+        setToCurrency(fromCurrency);
+        setConverted('0'); // Reset converted value when switching
+    };
+    
     useEffect(() => {
 
         async function fetchData() {
@@ -70,6 +76,32 @@ export default function HomePage() {
                                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter amount"
                             />
+                        </div>
+                        
+                        {/* Switch Button */}
+                        <div className="flex justify-center">
+                            <button
+                                type="button"
+                                onClick={handleSwitchCurrencies}
+                                className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-full transition flex items-center justify-center"
+                                title="Switch currencies"
+                                aria-label="Switch currencies"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="w-6 h-6"
+                                >
+                                    <path
+                                        d="M10 6L7 3M7 3L4 6M7 3V17M14 18L17 21M17 21L20 18M17 21V7"
+                                        stroke="#000000"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </button>
                         </div>
                         
                         {/* To Currency */}
