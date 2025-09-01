@@ -1,9 +1,25 @@
+'use client';
+import { useEffect, useState } from "react";
 import { getCurrienciesList } from "./api/currencies/handler";
+import { CurrencyDTO } from "./api/currencies/response.dto";
+import { fetch_converted_currencies } from "./api/currencies/route";
 
-export default async function HomePage() {
+export default function HomePage() {
+    const [amount, setAmount] = useState<string>('0');
+    const [fromCurrency, setFromCurrency] = useState<string>('');
+    const [toCurrency, setToCurrency] = useState<string>('');
+    const [currencies, setCurrencies] = useState<CurrencyDTO[]>([]);
     
-    const currencies = await getCurrienciesList();
-    
+    useEffect(() => {
+
+        async function fetchData() {
+            const data = await getCurrienciesList();
+            setCurrencies(data);
+        }
+
+        fetchData();
+    }, []);
+
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
             {/* Header / Banner */}
@@ -17,7 +33,7 @@ export default async function HomePage() {
             {/* Main Content */}
             <main className="flex flex-1 items-center justify-center">
                 <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-                    <form className="space-y-6">
+                    <form className="space-y-6 text-black">
                         {/* From Currency */}
                         <div>
                             <label className="block text-gray-700 font-medium mb-2" htmlFor="from-currency">
@@ -25,7 +41,9 @@ export default async function HomePage() {
                             </label>
                             <select
                                 id="from-currency"
-                                className="w-full border text-black border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={fromCurrency}
+                                onChange={event => setFromCurrency(event.currentTarget.value)}
+                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Select currency</option>
                                 {currencies.length > 0 &&
@@ -46,7 +64,9 @@ export default async function HomePage() {
                             </label>
                             <select
                                 id="to-currency"
-                                className="w-full border text-black border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                value={toCurrency}
+                                onChange={event => setToCurrency(event.currentTarget.value)}
+                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                             >
                                 <option value="">Select currency</option>
                                 {currencies.length > 0 &&
@@ -68,7 +88,8 @@ export default async function HomePage() {
                             <input
                                 type="number"
                                 step={0.01}
-                                id="amount"
+                                id="amount-input"
+                                onChange={event => setAmount(event.target.value)}
                                 className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 placeholder="Enter amount"
                             />
@@ -89,7 +110,11 @@ export default async function HomePage() {
                         <button
                             type="button"
                             className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
-                            disabled
+                            onClick={() => fetch_converted_currencies({
+                                from: fromCurrency,
+                                to: toCurrency,
+                                amount: Number(amount)
+                            })}
                         >
                             Convert
                         </button>

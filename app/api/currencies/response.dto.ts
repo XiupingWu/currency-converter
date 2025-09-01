@@ -1,8 +1,19 @@
 import { currency } from "@/app/utils/types";
 
 // CurrencyBeacon API response structure
-export interface CurrencyApiResponse {
-    [id: number]: currency;
+interface CurrencyApiResponse {
+    [id: number]: currency,
+    meta: {
+        code: number,
+        disclaimer: string
+    },
+    response: {
+        [id: number]: currency,
+    }
+}
+
+interface ConvertAPIReponse {
+
 }
 
 // DTO for a single currency (array element)
@@ -16,11 +27,16 @@ export interface CurrencyDTO {
 
 // Helper to transform API response to array of CurrencyDTO
 export function currenciesToArrayDTO(response: CurrencyApiResponse): CurrencyDTO[] {
-    return Object.values(response).map((currency : currency) => ({
+    
+    return Object.values(response.response).map((currency : currency) => ({
         id: currency.id,
         code: currency.code,
         short_code: currency.short_code,
         name: currency.name,
         symbol: currency.symbol,
     }))
+}
+
+export function convertedToNumberDTO(response: ConvertAPIReponse): number {
+
 }
