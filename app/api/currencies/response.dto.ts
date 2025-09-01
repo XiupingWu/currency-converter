@@ -1,6 +1,6 @@
 import { currency } from "@/app/utils/types";
 
-// CurrencyBeacon API response structure
+// currencies API response structure
 interface CurrencyApiResponse {
     [id: number]: currency,
     meta: {
@@ -12,6 +12,7 @@ interface CurrencyApiResponse {
     }
 }
 
+// convert API response structure
 interface ConvertAPIReponse {
     meta: {
         code: number;

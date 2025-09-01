@@ -7,6 +7,13 @@ export async function getCurrienciesList() {
     return currenciesToArrayDTO(currencies);
 }
 
+/**
+ * 
+ * @param from - The currency convert from.
+ * @param to - The currency convert to  
+ * @param amount - The amount of currencies will be convert
+ * @returns convertedToNumberDTO() : number
+ */
 export async function getConvertedValue({from, to, amount} : {
     from: string,
     to: string,

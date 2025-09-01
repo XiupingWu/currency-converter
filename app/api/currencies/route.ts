@@ -23,14 +23,6 @@ export async function fetch_currencies() {
     }
 }
 
-
-/**
- * 
- * @param from - The currency convert from.
- * @param to - The currency convert to  
- * @param amount - The amount of currencies will be convert
- * @returns 
- */
 export async function fetch_converted_currencies({from, to, amount} : {
     from: string,
     to: string,
