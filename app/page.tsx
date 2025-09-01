@@ -1,11 +1,11 @@
 'use client';
 import { useEffect, useState } from "react";
-import { getCurrienciesList } from "./api/currencies/handler";
+import { getConvertedValue, getCurrienciesList } from "./api/currencies/handler";
 import { CurrencyDTO } from "./api/currencies/response.dto";
-import { fetch_converted_currencies } from "./api/currencies/route";
 
 export default function HomePage() {
     const [amount, setAmount] = useState<string>('0');
+    const [converted, setConverted] = useState<string>('0');
     const [fromCurrency, setFromCurrency] = useState<string>('');
     const [toCurrency, setToCurrency] = useState<string>('');
     const [currencies, setCurrencies] = useState<CurrencyDTO[]>([]);
@@ -101,8 +101,7 @@ export default function HomePage() {
                                 Converted Value
                             </label>
                             <div className="w-full border border-gray-200 rounded px-3 py-2 bg-gray-100 text-gray-500">
-                                {/* Placeholder for converted value */}
-                                --
+                                {converted}
                             </div>
                         </div>
 
@@ -110,11 +109,15 @@ export default function HomePage() {
                         <button
                             type="button"
                             className="w-full bg-blue-600 text-white font-semibold py-2 rounded hover:bg-blue-700 transition"
-                            onClick={() => fetch_converted_currencies({
-                                from: fromCurrency,
-                                to: toCurrency,
-                                amount: Number(amount)
-                            })}
+                            onClick={async () => {
+                                const value = await getConvertedValue({
+                                    from: fromCurrency,
+                                    to: toCurrency,
+                                    amount: Number(amount)
+                                });
+
+                                setConverted(value.toString());
+                            }}
                         >
                             Convert
                         </button>

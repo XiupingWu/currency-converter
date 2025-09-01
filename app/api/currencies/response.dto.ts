@@ -13,7 +13,24 @@ interface CurrencyApiResponse {
 }
 
 interface ConvertAPIReponse {
-
+    meta: {
+        code: number;
+        disclaimer: string;
+    };
+    response: {
+        timestamp: number;
+        date: string;
+        from: string;
+        to: string;
+        amount: number;
+        value: number;
+    };
+    timestamp: number;
+    date: string;
+    from: string;
+    to: string;
+    amount: number;
+    value: number;
 }
 
 // DTO for a single currency (array element)
@@ -37,6 +54,7 @@ export function currenciesToArrayDTO(response: CurrencyApiResponse): CurrencyDTO
     }))
 }
 
+// Helper to extract the converted value from the convert api response
 export function convertedToNumberDTO(response: ConvertAPIReponse): number {
-
+    return response.value;
 }
