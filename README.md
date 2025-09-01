@@ -3,7 +3,7 @@
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/XiupingWu/currency-converter.git
    cd currency-converter
 
 2. **npm install**
