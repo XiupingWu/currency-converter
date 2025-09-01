@@ -1,5 +1,5 @@
 import { convertedToNumberDTO, currenciesToArrayDTO } from "./response.dto";
-import { fetch_converted_currencies, fetch_currencies } from "./route";
+import { fetch_converted_currencies, fetch_currencies } from "./api";
 
 export async function getCurrienciesList() {
     const currencies = await fetch_currencies();

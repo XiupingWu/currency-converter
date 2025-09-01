@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from "react";
-import { getConvertedValue, getCurrienciesList } from "./api/currencies/handler";
-import { CurrencyDTO } from "./api/currencies/response.dto";
+import { getConvertedValue, getCurrienciesList } from "./utils/currencies/handler";
+import { CurrencyDTO } from "./utils/currencies/response.dto";
 
 export default function HomePage() {
     const [amount, setAmount] = useState<string>('0');
