@@ -1,4 +1,19 @@
 # js-interview-assessment
+## How to Run Locally
+
+1. **Clone the repository:**
+   ```sh
+   git clone <your-repo-url>
+   cd currency-converter
+
+2. **npm install**
+3. **Setup your local .env file**
+
+    Note: Since this is a simple one page web app with client side rendering intsead of server side, you are required to append `NEXT_PUBLIC` for your api url/ key in your .env file to make it readable through ```
+    process.env.<your_url>```
+4. **npm run dev**
+
+    Enjoy it!
 
 ## Project Overview:
 
